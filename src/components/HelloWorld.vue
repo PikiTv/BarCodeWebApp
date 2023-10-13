@@ -1,44 +1,37 @@
-<script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true
-  }
-})
-</script>
-
 <template>
-  <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
-      You’ve successfully created a project with
-      <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
-      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
-    </h3>
+  <div>
+    <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded" class="camera-container"></StreamBarcodeReader>
+    <p v-if="scannedBarcode">Gescannter Barcode: {{ scannedBarcode }}</p>
   </div>
 </template>
 
-<style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
-}
+<script>
+import { StreamBarcodeReader } from "vue-barcode-reader";
 
-h3 {
-  font-size: 1.2rem;
-}
-
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
+export default {
+  components: {
+    StreamBarcodeReader
+  },
+  data() {
+    return {
+      scannedBarcode: null
+    };
+  },
+  methods: {
+    onDecode(decodedData) {
+      // Diese Methode wird aufgerufen, wenn ein Barcode gescannt wurde.
+      this.scannedBarcode = decodedData;
+    },
+    onLoaded() {
+      // Diese Methode wird aufgerufen, wenn die Kamera geladen ist.
+      console.log("Kamera ist geladen.");
+    }
   }
+};
+</script>
+
+<style>
+.camera-container {
+  transform: scaleX(-1); /* Spiegele die Kameraanzeige horizontal */
 }
 </style>
