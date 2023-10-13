@@ -38,7 +38,7 @@ export default {
 -->
 
 <style>
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   /* Füge die Spiegelung nur auf Bildschirmen mit einer Mindestbreite von 768 Pixeln hinzu (Computer) */
   .camera-container {
     transform: scaleX(-1); /* Spiegele die Kameraanzeige horizontal */
