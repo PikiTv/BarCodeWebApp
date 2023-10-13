@@ -27,11 +27,11 @@ export default {
   },
   methods: {
     onDecode(decodedData) {
-      // Diese Methode wird aufgerufen, wenn ein Barcode gescannt wurde.
+     
       this.scannedBarcode = decodedData;
     },
     onLoaded() {
-      // Diese Methode wird aufgerufen, wenn die Kamera geladen ist.
+      
       console.log("Kamera ist geladen.");
     }
   }
@@ -40,9 +40,9 @@ export default {
 
 <style>
 @media (min-width: 1500px) {
-  /* Füge die Spiegelung nur auf Bildschirmen mit einer Mindestbreite von 768 Pixeln hinzu (Computer) */
+  
   .camera-container {
-    transform: scaleX(-1); /* Spiegele die Kameraanzeige horizontal */
+    transform: scaleX(-1); 
   }
 }
 img{
