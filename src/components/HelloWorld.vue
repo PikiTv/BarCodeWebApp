@@ -9,6 +9,7 @@
 
 <script>
 import { StreamBarcodeReader } from "vue-barcode-reader";
+import axios from "axios"; // Fügen Sie axios hinzu
 
 export default {
   components: {
@@ -25,27 +26,47 @@ export default {
       }
     };
   },
+  created() {
+    // Beim Erstellen der Komponente die gescannten Daten vom Backend abrufen
+    this.fetchScannedBarcode();
+  },
   methods: {
     onDecode(decodedData) {
-     
       this.scannedBarcode = decodedData;
+      // Speichern Sie den gescannten Barcode im Backend
+      this.saveScannedBarcode(decodedData);
     },
     onLoaded() {
-      
       console.log("Kamera ist geladen.");
-    }
+    },
+    async fetchScannedBarcode() {
+      try {
+        const response = await axios.get("/api/scanned-barcode");
+        if (response.data && response.data.scannedBarcode) {
+          this.scannedBarcode = response.data.scannedBarcode;
+        }
+      } catch (error) {
+        console.error("Fehler beim Abrufen des gescannten Barcodes:", error);
+      }
+    },
+    async saveScannedBarcode(barcode) {
+      try {
+        await axios.post("/api/scanned-barcode", { scannedBarcode: barcode });
+      } catch (error) {
+        console.error("Fehler beim Speichern des gescannten Barcodes:", error);
+      }
+    },
   }
 };
 </script>
 
 <style>
 @media (min-width: 1500px) {
-  
   .camera-container {
     transform: scaleX(-1); 
   }
 }
-img{
+img {
   max-width: 300px;
   max-height: 300px;
 }
