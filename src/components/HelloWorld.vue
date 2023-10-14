@@ -1,31 +1,14 @@
 <template>
-  <div>
+  <div class="container">
     <h1 class="title">Barcode Scanner</h1>
-    <div>
-      <button @click="toggleCamera" class="scan-button">
-        {{ isCameraOn ? 'Kamera ausschalten' : 'Hier scannen' }}
-      </button>
-      <StreamBarcodeReader
-        ref="barcodeReader"
-        @decode="onDecode"
-        @loaded="onLoaded"
-        class="camera-container"
-        v-if="isCameraOn"
-      ></StreamBarcodeReader>
-      <p v-if="scannedBarcode" class="barcode-text">
-        Gescannter Barcode: {{ scannedBarcode }}
-      </p>
-      <img
-        v-if="scannedBarcode && images[scannedBarcode]"
-        :src="images[scannedBarcode]"
-        alt="Scanned Product Image"
-        class="product-image"
-      />
-      <div v-if="savedDataArray.length > 0">
+    <div class="scanner-container">
+      <button @click="toggleCamera" class="scan-button">{{ isCameraOn ? 'Kamera ausschalten' : 'Hier scannen' }}</button>
+      <StreamBarcodeReader ref="barcodeReader" @decode="onDecode" @loaded="onLoaded" class="camera-container" v-if="isCameraOn"></StreamBarcodeReader>
+      <p v-if="scannedBarcode" class="barcode-text">Gescannter Barcode: {{ scannedBarcode }}</p>
+      <img v-if="scannedBarcode && images[scannedBarcode]" :src="images[scannedBarcode]" alt="Scanned Product Image" class="product-image" />
+      <div v-if="savedDataArray.length > 0" class="saved-barcodes-container">
         <h2 class="saved-barcodes-title">Gespeicherte Barcodes aus dem Backend:</h2>
-        <div class="saved-barcode" v-for="(item, index) in savedDataArray" :key="index">
-          {{ item }}
-        </div>
+        <div class="saved-barcode" v-for="(item, index) in savedDataArray" :key="index">{{ item }}</div>
       </div>
     </div>
   </div>
@@ -93,12 +76,31 @@ export default {
 @media (min-width: 1500px) {
   .camera-container {
     transform: scaleX(-1);
+    width: 1000px;
+    height: auto;
   }
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Damit der Inhalt oben beginnt */
+  align-items: center;
+  height: 100vh;
+  margin-top: 20px; /* Fügt oben Platz hinzu */
+}
+
 .title {
-  font-size: 24px;
+  font-size: 36px;
   text-align: center;
   margin-bottom: 20px;
+}
+
+.scanner-container {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .scan-button {
@@ -108,6 +110,7 @@ export default {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .scan-button:hover {
@@ -115,24 +118,35 @@ export default {
 }
 
 .barcode-text {
-  font-size: 18px;
+  font-size: 24px;
   margin: 20px 0;
+  color: #007bff;
 }
 
 .product-image {
   max-width: 300px;
   max-height: 300px;
   display: block;
-  margin: 10px auto;
+  margin: 20px auto;
+}
+
+.saved-barcodes-container {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
 }
 
 .saved-barcodes-title {
-  font-size: 20px;
+  font-size: 28px;
   margin: 20px 0;
+  color: #0056b3;
 }
 
 .saved-barcode {
-  font-size: 16px;
-  margin: 5px 0;
+  font-size: 20px;
+  margin: 10px 0;
+  color: #0056b3;
 }
 </style>
