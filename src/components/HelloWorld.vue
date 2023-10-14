@@ -47,7 +47,7 @@ export default {
     },
     async saveScannedBarcode(barcode) {
       try {
-        await axios.post("http://localhost:8080/product", { barcode });
+        await axios.post("http://barcodescannerbackend.azurewebsites.net:8080/product", { barcode });
         console.log("Gespeicherter Barcode:", barcode);
         this.savedDataArray.push(barcode);
       } catch (error) {
@@ -56,7 +56,7 @@ export default {
     },
     async fetchSavedDataArray() {
       try {
-        const response = await axios.get("http://localhost:8080/product");
+        const response = await axios.get("http://barcodescannerbackend.azurewebsites.net:8080/product");
         this.savedDataArray = response.data;
       } catch (error) {
         console.error("Fehler beim Abrufen des Arrays aus dem Backend:", error);
