@@ -76,8 +76,7 @@ export default {
 @media (min-width: 1500px) {
   .camera-container {
     transform: scaleX(-1);
-    width: 1000px;
-    height: auto;
+
   }
 }
 .container {
