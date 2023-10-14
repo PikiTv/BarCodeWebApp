@@ -52,6 +52,7 @@ export default {
     async saveScannedBarcode(barcode) {
       try {
         await axios.post("/api/scanned-barcode", { scannedBarcode: barcode });
+        console.log("Gespeicherter Barcode:", barcode); // Ausgabe in der Konsole
       } catch (error) {
         console.error("Fehler beim Speichern des gescannten Barcodes:", error);
       }
