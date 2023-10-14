@@ -65,7 +65,6 @@ export default {
     toggleCamera() {
       this.isCameraOn = !this.isCameraOn;
       if (!this.isCameraOn) {
-        // Hier kannst du die Logik zum Ausschalten der Kamera einfügen, falls erforderlich.
       }
     }
   }
@@ -82,10 +81,10 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Damit der Inhalt oben beginnt */
+  justify-content: flex-start;
   align-items: center;
   height: 100vh;
-  margin-top: 20px; /* Fügt oben Platz hinzu */
+  margin-top: 20px; 
 }
 
 .title {
