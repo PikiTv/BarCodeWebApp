@@ -92,6 +92,7 @@ export default {
   font-size: 36px;
   text-align: center;
   margin-bottom: 20px;
+  color: #f5f5f5;
 }
 
 .scanner-container {
