@@ -9,7 +9,7 @@
 
 <script>
 import { StreamBarcodeReader } from "vue-barcode-reader";
-import axios from "axios"; // Fügen Sie axios hinzu
+import axios from "axios";
 
 export default {
   components: {
@@ -27,13 +27,11 @@ export default {
     };
   },
   created() {
-    // Beim Erstellen der Komponente die gescannten Daten vom Backend abrufen
     this.fetchScannedBarcode();
   },
   methods: {
     onDecode(decodedData) {
       this.scannedBarcode = decodedData;
-      // Speichern Sie den gescannten Barcode im Backend
       this.saveScannedBarcode(decodedData);
     },
     onLoaded() {
@@ -41,7 +39,7 @@ export default {
     },
     async fetchScannedBarcode() {
       try {
-        const response = await axios.get("/api/scanned-barcode");
+        const response = await axios.get("http://localhost:8080/product"); // Verändert, um zum Backend-Endpoint zu passen
         if (response.data && response.data.scannedBarcode) {
           this.scannedBarcode = response.data.scannedBarcode;
         }
@@ -51,8 +49,8 @@ export default {
     },
     async saveScannedBarcode(barcode) {
       try {
-        await axios.post("/api/scanned-barcode", { scannedBarcode: barcode });
-        console.log("Gespeicherter Barcode:", barcode); // Ausgabe in der Konsole
+        await axios.post("http://localhost:8080/product", { scannedBarcode: barcode }); // Verändert, um zum Backend-Endpoint zu passen
+        console.log("Gespeicherter Barcode:", barcode);
       } catch (error) {
         console.error("Fehler beim Speichern des gescannten Barcodes:", error);
       }
@@ -64,7 +62,7 @@ export default {
 <style>
 @media (min-width: 1500px) {
   .camera-container {
-    transform: scaleX(-1); 
+    transform: scaleX(-1);
   }
 }
 img {
